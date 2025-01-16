@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import WalletConnect from './components/WalletConnect';
+import Dashboard from './components/Dashboard';
 
 function App() {
   return (
@@ -10,6 +11,9 @@ function App() {
         <p>Track your decentralized finance investments across multiple protocols</p>
         <WalletConnect />
       </header>
+      <main>
+        <Dashboard />
+      </main>
     </div>
   );
 }
