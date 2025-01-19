@@ -1,0 +1,85 @@
+.chain-selector {
+  position: relative;
+  display: inline-block;
+}
+
+.chain-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chain-toggle:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.dropdown-arrow {
+  transition: transform 0.2s ease;
+  font-size: 12px;
+}
+
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
+.chain-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  background: rgba(15, 15, 35, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(20px);
+  z-index: 100;
+  min-width: 200px;
+}
+
+.chain-option {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.chain-option:last-child {
+  border-bottom: none;
+}
+
+.chain-option:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.chain-option input[type="checkbox"] {
+  margin-right: 12px;
+  accent-color: #667eea;
+}
+
+.chain-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chain-icon {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.chain-name {
+  color: #ffffff;
+  font-weight: 500;
+}

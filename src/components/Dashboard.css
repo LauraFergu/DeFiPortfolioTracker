@@ -31,6 +31,12 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
 .dashboard-header h2 {
   color: #ffffff;
   margin: 0;
@@ -129,8 +135,54 @@
     gap: 20px;
     text-align: center;
   }
+
+  .header-left {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .total-value {
+    text-align: center;
+  }
   
   .portfolio-grid {
     grid-template-columns: 1fr;
+  }
+
+  .portfolio-card {
+    padding: 20px;
+  }
+
+  .protocol-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .protocol-info {
+    width: 100%;
+  }
+
+  .protocol-value {
+    align-self: flex-end;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard {
+    padding: 15px;
+  }
+
+  .App-header {
+    padding: 30px 15px;
+  }
+
+  .App-header h1 {
+    font-size: 2rem;
+  }
+
+  .total-value .value {
+    font-size: 1.5rem;
   }
 }

@@ -1,15 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useWallet } from '../hooks/useWallet';
 import { getTotalPortfolioValue, getPositionsByCategory } from '../data/mockData';
+import LoadingSpinner from './LoadingSpinner';
+import ChainSelector from './ChainSelector';
 import './Dashboard.css';
 
 const Dashboard: React.FC = () => {
   const { isConnected, address } = useWallet();
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedChains, setSelectedChains] = useState(['ethereum']);
   
   const totalValue = getTotalPortfolioValue();
   const lendingPositions = getPositionsByCategory('lending');
   const dexPositions = getPositionsByCategory('dex');
   const stakingPositions = getPositionsByCategory('staking');
+
+  const handleChainToggle = (chainId: string) => {
+    setSelectedChains(prev => 
+      prev.includes(chainId) 
+        ? prev.filter(id => id !== chainId)
+        : [...prev, chainId]
+    );
+  };
+
+  useEffect(() => {
+    if (isConnected && address) {
+      setIsLoading(true);
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [isConnected, address, selectedChains]);
 
   if (!isConnected) {
     return (
@@ -22,10 +44,24 @@ const Dashboard: React.FC = () => {
     );
   }
 
+  if (isLoading) {
+    return (
+      <div className="dashboard">
+        <LoadingSpinner size="large" text="Fetching portfolio data..." />
+      </div>
+    );
+  }
+
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h2>Portfolio Overview</h2>
+        <div className="header-left">
+          <h2>Portfolio Overview</h2>
+          <ChainSelector 
+            selectedChains={selectedChains} 
+            onChainToggle={handleChainToggle} 
+          />
+        </div>
         <div className="total-value">
           <span className="label">Total Portfolio Value</span>
           <span className="value">${totalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
