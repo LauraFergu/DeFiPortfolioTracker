@@ -106,6 +106,15 @@
   border-color: rgba(102, 126, 234, 0.3);
 }
 
+.protocol-item.clickable {
+  cursor: pointer;
+}
+
+.protocol-item.clickable:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
 .protocol-info {
   display: flex;
   flex-direction: column;

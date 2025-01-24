@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useWallet } from '../hooks/useWallet';
-import { getTotalPortfolioValue, getPositionsByCategory } from '../data/mockData';
+import { getTotalPortfolioValue, getPositionsByCategory, ProtocolPosition } from '../data/mockData';
 import LoadingSpinner from './LoadingSpinner';
 import ChainSelector from './ChainSelector';
+import TokenDetails from './TokenDetails';
 import './Dashboard.css';
 
 const Dashboard: React.FC = () => {
   const { isConnected, address } = useWallet();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedChains, setSelectedChains] = useState(['ethereum']);
+  const [selectedPosition, setSelectedPosition] = useState<ProtocolPosition | null>(null);
   
   const totalValue = getTotalPortfolioValue();
   const lendingPositions = getPositionsByCategory('lending');
@@ -73,7 +75,11 @@ const Dashboard: React.FC = () => {
           <h3>Lending Protocols</h3>
           <div className="protocol-list">
             {lendingPositions.map((position) => (
-              <div key={position.protocol} className="protocol-item">
+              <div 
+                key={position.protocol} 
+                className="protocol-item clickable"
+                onClick={() => setSelectedPosition(position)}
+              >
                 <div className="protocol-info">
                   <span className="protocol-name">{position.protocol}</span>
                   <span className="protocol-apy">{position.apy}% APY</span>
@@ -90,7 +96,11 @@ const Dashboard: React.FC = () => {
           <h3>DEX Liquidity</h3>
           <div className="protocol-list">
             {dexPositions.map((position) => (
-              <div key={position.protocol} className="protocol-item">
+              <div 
+                key={position.protocol} 
+                className="protocol-item clickable"
+                onClick={() => setSelectedPosition(position)}
+              >
                 <div className="protocol-info">
                   <span className="protocol-name">{position.protocol}</span>
                   <span className="protocol-apy">{position.apy}% APY</span>
@@ -107,7 +117,11 @@ const Dashboard: React.FC = () => {
           <h3>Staking</h3>
           <div className="protocol-list">
             {stakingPositions.map((position) => (
-              <div key={position.protocol} className="protocol-item">
+              <div 
+                key={position.protocol} 
+                className="protocol-item clickable"
+                onClick={() => setSelectedPosition(position)}
+              >
                 <div className="protocol-info">
                   <span className="protocol-name">{position.protocol}</span>
                   <span className="protocol-apy">{position.apy}% APY</span>
@@ -120,6 +134,13 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      {selectedPosition && (
+        <TokenDetails 
+          position={selectedPosition} 
+          onClose={() => setSelectedPosition(null)} 
+        />
+      )}
     </div>
   );
 };
