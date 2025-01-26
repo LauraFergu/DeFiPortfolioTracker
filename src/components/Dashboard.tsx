@@ -4,6 +4,8 @@ import { getTotalPortfolioValue, getPositionsByCategory, ProtocolPosition } from
 import LoadingSpinner from './LoadingSpinner';
 import ChainSelector from './ChainSelector';
 import TokenDetails from './TokenDetails';
+import PortfolioChart from './PortfolioChart';
+import YieldOptimizer from './YieldOptimizer';
 import './Dashboard.css';
 
 const Dashboard: React.FC = () => {
@@ -69,6 +71,10 @@ const Dashboard: React.FC = () => {
           <span className="value">${totalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
         </div>
       </div>
+
+      <PortfolioChart />
+      
+      <YieldOptimizer />
       
       <div className="portfolio-grid">
         <div className="portfolio-card">
